@@ -5,6 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@100..900&display=swap" rel="stylesheet">
   <title>Buzzer</title>
   <style>
     * {
@@ -51,18 +54,25 @@
   <div class="flex w-screen h-screen justify-center items-center content-center flex-wrap">
 
     <div class="w-full flex justify-center pt-8">
-      <button id="playButton" type="button"
-        class="w-[15vw] h-[15vw] border-0 rounded-full cursor-pointer bg-yellow-300"></button>
+      <button id="playButton" type="button" class="w-[60vw] h-[60vw] md:w-[15vw] md:h-[15vw] border-0 rounded-full cursor-pointer bg-yellow-300"></button>
     </div>
 
-    <div class="w-full flex justify-center pt-16">
+    <div class="w-full flex justify-center pt-16 flex-wrap">
+
+      <div class="w-full flex justify-center">
+
 
       <label class="inline-flex items-center cursor-pointer">
         <input id="nsfw-switch" type="checkbox" value="" class="sr-only peer">
         <div
-          class="relative w-14 h-8 bg-red-500 peer-focus:outline-none peer-focus:ring-brand-soft dark:peer-focus:ring-brand-soft rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-buffer after:content-[''] after:absolute after:top-[4px] after:start-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-green-500">
+          class="relative w-14 h-8 bg-green-500 peer-focus:outline-none peer-focus:ring-brand-soft dark:peer-focus:ring-brand-soft rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-buffer after:content-[''] after:absolute after:top-[4px] after:start-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-red-500">
         </div>
+
       </label>
+
+    </div>
+
+      <span class="font-black text-base mt-1">NSFW</span>
 
     </div>
 
