@@ -3,35 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Audio casuale</title>
-
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <title>Buzzer</title>
   <style>
-    :root {
-      color-scheme: light dark;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
     * {
       box-sizing: border-box;
     }
 
-    body {
-      min-height: 100vh;
-      min-height: 100svh;
-      margin: 0;
-      display: grid;
-      place-items: center;
-      background: Canvas;
-      color: CanvasText;
-    }
-
     button {
-        width: 15vw;
-        height: 15vw;
-      border: 0;
-      border-radius: 50%;
-      cursor: pointer;
-      background: yellow;
       box-shadow: 0 0 1.5rem rgb(255 255 0 / 58%);
       transition:
         transform 120ms ease,
@@ -66,11 +45,38 @@
   </style>
 </head>
 
-<body>
-  <button id="playButton" type="button"></button>
+<body class="p-0 m-0">
+
+  <div class="flex w-screen h-screen justify-center items-center content-center flex-wrap">
+
+    <div class="w-full flex justify-center pt-8">
+      <button id="playButton" type="button" class="w-[15vw] h-[15vw] border-0 rounded-full cursor-pointer bg-yellow-300"></button>
+    </div>
+
+    <div class="w-full flex justify-center pt-16">
+
+      <label class="inline-flex items-center cursor-pointer">
+        <input type="checkbox" value="" class="sr-only peer">
+        <div class="relative w-14 h-8 bg-red-500 peer-focus:outline-none peer-focus:ring-brand-soft dark:peer-focus:ring-brand-soft rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-buffer after:content-[''] after:absolute after:top-[4px] after:start-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-green-500"></div>
+      </label>
+
+    </div>
+
+  </div>
+
+
+</body>
+</html>
+
+
 
   <script>
+
     "use strict";
+
+
+    let is_nswf = false;
+    
 
     /*
      * Inserisci qui i percorsi dei file MP3.
@@ -181,5 +187,3 @@
 
     button.addEventListener("click", playRandomMp3);
   </script>
-</body>
-</html>
