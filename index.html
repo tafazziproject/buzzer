@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Audio casuale</title>
+
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background: Canvas;
+      color: CanvasText;
+    }
+
+    button {
+        width: 15vw;
+        height: 15vw;
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      background: yellow;
+      box-shadow: 0 0 1.5rem rgb(255 255 0 / 58%);
+      transition:
+        transform 120ms ease,
+        box-shadow 120ms ease,
+        opacity 120ms ease;
+    }
+
+    button.playing {
+      background-color: red;
+      box-shadow: 0 0 1.5rem rgb(255 0 0 / 58%);
+    }
+
+    button:not(.playing):hover:not(:disabled) {
+      transform: scale(1.2);
+      transform-origin: center;
+      box-shadow: 0 0 1.75rem rgb(255 255 0 / 94%);
+    }
+
+    button:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    button:focus-visible {
+      outline: 3px solid Highlight;
+      outline-offset: 4px;
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body>
+  <button id="playButton" type="button"></button>
+
+  <script>
+    "use strict";
+
+    /*
+     * Inserisci qui i percorsi dei file MP3.
+     *
+     * Sono ammessi:
+     * - percorsi relativi: "audio/brano-1.mp3"
+     * - percorsi assoluti: "/media/brano-2.mp3"
+     * - URL completi: "https://example.com/brano-3.mp3"
+     */
+    const mp3Files = [
+      "audio/fregna.mp3",
+      "audio/rafele_long.mp3",
+      "audio/rafeeele_short.mp3",
+      "audio/mmoccachitebbiv.mp3",
+      "audio/raffele_perbene.mp3",
+      "audio/fischio.mp3",
+      "audio/vivalafregna.mp3",
+      "audio/carmine_short.mp3",
+      "audio/carmine_long.mp3",
+      "audio/vicie_long.mp3",
+      "audio/vicie_short.mp3",
+    ];
+
+    const button = document.querySelector("#playButton");
+
+    let currentAudio = null;
+    let messageTimeout = null;
+
+    /**
+     * Restituisce un indice casuale compreso tra 0 e length - 1.
+     * Usa crypto.getRandomValues quando disponibile.
+     */
+    function randomIndex(length) {
+      if (!Number.isInteger(length) || length <= 0) {
+        throw new RangeError("La lunghezza dell'array deve essere maggiore di zero.");
+      }
+
+      if (globalThis.crypto?.getRandomValues) {
+        const values = new Uint32Array(1);
+        const range = 0x100000000;
+        const limit = Math.floor(range / length) * length;
+
+        do {
+          crypto.getRandomValues(values);
+        } while (values[0] >= limit);
+
+        return values[0] % length;
+      }
+
+      return Math.floor(Math.random() * length);
+    }
+
+
+    function showTemporaryMessage(message, duration = 3000) {
+      window.clearTimeout(messageTimeout);
+      button.textContent = message;
+
+    }
+
+    async function playRandomMp3() {
+      if (mp3Files.length === 0) {
+        showTemporaryMessage("Nessun MP3 configurato");
+        return;
+      }
+
+      button.disabled = true;
+      //button.textContent = "Caricamento…";
+
+
+      try {
+        currentAudio?.pause();
+
+        const selectedFile = mp3Files[randomIndex(mp3Files.length)];
+        const selectedUrl = new URL(selectedFile, document.baseURI);
+
+        currentAudio = new Audio(selectedUrl.href);
+        currentAudio.preload = "auto";
+
+        currentAudio.addEventListener(
+          "error",
+          () => {
+            showTemporaryMessage("Errore di riproduzione");
+          },
+          { once: true }
+        );
+
+        currentAudio.addEventListener(
+          "ended",
+          () => {
+            button.classList.remove('playing');
+          },
+          { once: true }
+        );
+
+        
+        button.classList.add('playing');
+        await currentAudio.play();
+        
+        //button.textContent = "Riproduci un altro MP3";
+      } catch (error) {
+        console.error(error);
+        showTemporaryMessage("Impossibile riprodurre l'audio");
+      } finally {
+        button.disabled = false;
+        
+      }
+    }
+
+    button.addEventListener("click", playRandomMp3);
+  </script>
+</body>
+</html>
