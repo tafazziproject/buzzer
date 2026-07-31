@@ -1,0 +1,40 @@
+body {
+    font-family: "Science Gothic", sans-serif;
+}
+
+#playButton {
+    box-shadow: 0 0 1.5rem rgb(255 255 0 / 58%);
+    transition:
+        transform 120ms ease,
+        box-shadow 120ms ease,
+        opacity 120ms ease;
+}
+
+#playButton.playing {
+    background-color: red;
+    box-shadow: 0 0 1.5rem rgb(255 0 0 / 58%);
+}
+
+#playButton:not(.playing):hover:not(:disabled) {
+    transform: scale(1.2);
+    transform-origin: center;
+    box-shadow: 0 0 1.75rem rgb(255 255 0 / 94%);
+}
+
+#playButton:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+#playButton:focus-visible {
+    outline: 3px solid Highlight;
+    outline-offset: 4px;
+}
+
+#playButton:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+#nav-toggle.active {
+    -webkit-transform: scaleY(-1);
+  transform: scaleY(-1);
+}

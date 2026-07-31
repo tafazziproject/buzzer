@@ -8,69 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@100..900&display=swap" rel="stylesheet">
-  <title>Buzzer</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "Science Gothic", sans-serif;
-    }
-
-    #playButton {
-      box-shadow: 0 0 1.5rem rgb(255 255 0 / 58%);
-      transition:
-        transform 120ms ease,
-        box-shadow 120ms ease,
-        opacity 120ms ease;
-    }
-
-    #playButton.playing {
-      background-color: red;
-      box-shadow: 0 0 1.5rem rgb(255 0 0 / 58%);
-    }
-
-    #playButton:not(.playing):hover:not(:disabled) {
-      transform: scale(1.2);
-      transform-origin: center;
-      box-shadow: 0 0 1.75rem rgb(255 255 0 / 94%);
-    }
-
-    #playButton:active:not(:disabled) {
-      transform: translateY(0);
-    }
-
-    #playButton:focus-visible {
-      outline: 3px solid Highlight;
-      outline-offset: 4px;
-    }
-
-    #playButton:disabled {
-      cursor: wait;
-      opacity: 0.7;
-    }
-
-    .audio-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: red;
-    }
-
-  </style>
+  <link href="style.css" rel="stylesheet">
+  <script src="script.js" async defer></script>
+  <title>Tafazzi Project</title>
 </head>
 
 <body class="p-0 m-0">
 
-  <a id="nav-toggle" href="#" class="block absolute top-[6vw] right-[6vw] md:top-[2vw] hover:scale-[1.3] md:right-[2vw] perspective-origin-center origin-center cursor-pointer z-4">
+  <a id="nav-toggle" href="#" class="block fixed top-[6vw] right-[6vw] md:top-[2vw] hover:scale-[1.3] md:right-[2vw] perspective-origin-center origin-center cursor-pointer z-4">
     <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-auto" viewBox="0 0 31 27"><path d="M15.5,0,31,27H0Z"/></svg>
   </a>
 
@@ -85,7 +30,6 @@
     <div class="w-full flex justify-center pt-16 flex-wrap">
 
       <div class="w-full flex justify-center">
-
 
         <label class="inline-flex items-center cursor-pointer">
           <input id="nsfw-switch" type="checkbox" value="" class="sr-only peer">
@@ -107,7 +51,7 @@
 
 
 
-  <nav class="none fixed w-screen h-screen top-0 left-0 bg-white z-3 translate-x-full duration-600 ease-in-out">
+  <nav class="none fixed w-screen h-screen top-0 left-0 bg-white z-3 -translate-y-full duration-600 ease-in-out">
 
     <div class="inner h-full w-full overflow-scroll relative mt-[6vw] grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-8 p-8 [&>div>button]:font-black [&>div>button]:text-lg [&>div>button]:uppercase [&>div>button_span]:w-3 [&>div>button_span]:h-3 [&>div>button_span]:rounded-full [&>div>button_span]:bg-red-500 [&>div>button_span]:inline-block [&>div>button_span]:-translate-y-2 [&>div>button_span]:ms-1 [&>div>button]:hover:opacity-50 [&>div>button]:cursor-pointer">
     </div>
@@ -119,174 +63,3 @@
 </body>
 
 </html>
-
-
-
-<script>
-
-  "use strict";
-
-
-  /*
-   * Inserisci qui i percorsi dei file MP3.
-   *
-   * Sono ammessi:
-   * - percorsi relativi: "audio/brano-1.mp3"
-   * - percorsi assoluti: "/media/brano-2.mp3"
-   * - URL completi: "https://example.com/brano-3.mp3"
-   */
-  const nswf_mp3Files = [
-    "audio/rafele_long.mp3",
-    "audio/mmoccachitebbiv.mp3",
-    "audio/raffele_perbene.mp3",
-    "audio/vivalafregna.mp3",
-    "audio/carmine_long.mp3",
-    "audio/vicie_long.mp3",
-    "audio/fregna.mp3",
-  ];
-
-  const mp3Files = [
-    "audio/rafeeele_short.mp3",
-    "audio/carmine_short.mp3",
-    "audio/vicie_short.mp3",
-    "audio/fischio.mp3",
-  ];
-
-  const allMp3Files = [
-    { path: "audio/rafele_long.mp3", name: "rafele_long", safe: false },
-    { path: "audio/mmoccachitebbiv.mp3", name: "mmoccachitebbiv", safe: false },
-    { path: "audio/raffele_perbene.mp3", name: "raffele_perbene", safe: false },
-    { path: "audio/vivalafregna.mp3", name: "vivalafregna", safe: false },
-    { path: "audio/carmine_long.mp3", name: "carmine_long", safe: false },
-    { path: "audio/vicie_long.mp3", name: "vicie_long", safe: false },
-    { path: "audio/fregna.mp3", name: "fregna", safe: false },
-    { path: "audio/rafeeele_short.mp3", name: "rafeeele_short", safe: true },
-    { path: "audio/carmine_short.mp3", name: "carmine_short", safe: true },
-    { path: "audio/vicie_short.mp3", name: "vicie_short", safe: true },
-    { path: "audio/fischio.mp3", name: "fischio", safe: true }
-  ]
-
-  const nav = document.querySelector("nav");
-  const navToggle = document.querySelector("#nav-toggle");
-  const button = document.querySelector("#playButton");
-  const nsfwSwitch = document.querySelector("#nsfw-switch");
-  const labelSwitch = document.querySelector("#switch-label");
-  const audioList = document.getElementById("audio-list");
-
-  allMp3Files.forEach(audio => {
-    const item = document.createElement("div");
-    item.className = "audio-item";
-    item.style.cursor = "pointer";
-
-    const name = document.createElement("button");
-    name.textContent = audio.name;
-    item.appendChild(name);
-
-    if (!audio.safe) {
-      const dot = document.createElement("span");
-      name.insertAdjacentElement('beforeEnd', dot);
-    }
-
-    item.addEventListener("click", () => playAudio(audio.path));
-
-    nav.querySelector(".inner").appendChild(item);
-  });
-
-  nsfwSwitch.addEventListener("change", () => {
-    labelSwitch.innerText = nsfwSwitch.checked ? "NOT SAFE" : "SAFE";
-  });
-
-
-
-  navToggle.addEventListener("click", () => {
-    nav.classList.toggle('translate-x-full')
-  });
-
-
-
-  let currentAudio = null;
-  let messageTimeout = null;
-
-  /**
-   * Restituisce un indice casuale compreso tra 0 e length - 1.
-   * Usa crypto.getRandomValues quando disponibile.
-   */
-  function randomIndex(length) {
-    if (!Number.isInteger(length) || length <= 0) {
-      throw new RangeError("La lunghezza dell'array deve essere maggiore di zero.");
-    }
-
-    if (globalThis.crypto?.getRandomValues) {
-      const values = new Uint32Array(1);
-      const range = 0x100000000;
-      const limit = Math.floor(range / length) * length;
-
-      do {
-        crypto.getRandomValues(values);
-      } while (values[0] >= limit);
-
-      return values[0] % length;
-    }
-
-    return Math.floor(Math.random() * length);
-  }
-
-
-  function showTemporaryMessage(message, duration = 3000) {
-    window.clearTimeout(messageTimeout);
-    button.textContent = message;
-
-  }
-
-  function playAudio(file) {
-    currentAudio?.pause();
-
-    currentAudio = new Audio(file);
-
-    currentAudio.addEventListener(
-      "ended",
-      () => {
-        button.classList.remove("playing");
-      },
-      { once: true }
-    );
-
-    button.classList.add("playing");
-    currentAudio.play();
-  }
-
-  async function playRandomMp3() {
-    if (mp3Files.length === 0) {
-      showTemporaryMessage("Nessun MP3 configurato");
-      return;
-    }
-
-    button.disabled = true;
-    //button.textContent = "Caricamento…";
-
-
-    try {
-      currentAudio?.pause();
-
-      const files = nsfwSwitch.checked ? nswf_mp3Files : mp3Files;
-
-      if (files.length === 0) {
-        showTemporaryMessage("Nessun MP3 configurato");
-        return;
-      }
-
-      const selectedFile = files[randomIndex(files.length)];
-      playAudio(selectedFile);
-
-      //button.textContent = "Riproduci un altro MP3";
-    } catch (error) {
-      console.error(error);
-      showTemporaryMessage("Impossibile riprodurre l'audio");
-    } finally {
-      button.disabled = false;
-
-    }
-  }
-
-  button.addEventListener("click", playRandomMp3);
-</script>
