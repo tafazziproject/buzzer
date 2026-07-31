@@ -46,6 +46,20 @@
       cursor: wait;
       opacity: 0.7;
     }
+
+    .audio-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: red;
+    }
   </style>
 </head>
 
@@ -76,6 +90,8 @@
       <span id="switch-label" class="font-black text-base mt-1">SAFE</span>
 
     </div>
+
+    <div id="audio-list"></div>
 
   </div>
 
@@ -116,10 +132,45 @@
     "audio/fischio.mp3",
   ];
 
+  const allMp3Files = [
+    { path: "audio/rafele_long.mp3", name: "rafele_long", safe: false },
+    { path: "audio/mmoccachitebbiv.mp3", name: "mmoccachitebbiv", safe: false },
+    { path: "audio/raffele_perbene.mp3", name: "raffele_perbene", safe: false },
+    { path: "audio/vivalafregna.mp3", name: "vivalafregna", safe: false },
+    { path: "audio/carmine_long.mp3", name: "carmine_long", safe: false },
+    { path: "audio/vicie_long.mp3", name: "vicie_long", safe: false },
+    { path: "audio/fregna.mp3", name: "fregna", safe: false },
+    { path: "audio/rafeeele_short.mp3", name: "rafeeele_short", safe: true },
+    { path: "audio/carmine_short.mp3", name: "carmine_short", safe: true },
+    { path: "audio/vicie_short.mp3", name: "vicie_short", safe: true },
+    { path: "audio/fischio.mp3", name: "fischio", safe: true }
+  ]
+
 
   const button = document.querySelector("#playButton");
   const nsfwSwitch = document.querySelector("#nsfw-switch");
   const labelSwitch = document.querySelector("#switch-label");
+  const audioList = document.getElementById("audio-list");
+
+  allMp3Files.forEach(audio => {
+    const item = document.createElement("div");
+    item.className = "audio-item";
+    item.style.cursor = "pointer";
+
+    const name = document.createElement("span");
+    name.textContent = audio.name;
+    item.appendChild(name);
+
+    if (!audio.safe) {
+      const dot = document.createElement("span");
+      dot.className = "dot";
+      item.appendChild(dot);
+    }
+
+    item.addEventListener("click", () => playAudio(audio.path));
+
+    audioList.appendChild(item);
+  });
 
   nsfwSwitch.addEventListener("change", () => {
     labelSwitch.innerText = nsfwSwitch.checked ? "NOT SAFE" : "SAFE";
@@ -160,6 +211,23 @@
 
   }
 
+  function playAudio(file) {
+    currentAudio?.pause();
+
+    currentAudio = new Audio(file);
+
+    currentAudio.addEventListener(
+      "ended",
+      () => {
+        button.classList.remove("playing");
+      },
+      { once: true }
+    );
+
+    button.classList.add("playing");
+    currentAudio.play();
+  }
+
   async function playRandomMp3() {
     if (mp3Files.length === 0) {
       showTemporaryMessage("Nessun MP3 configurato");
@@ -181,30 +249,7 @@
       }
 
       const selectedFile = files[randomIndex(files.length)];
-      const selectedUrl = new URL(selectedFile, document.baseURI);
-
-      currentAudio = new Audio(selectedUrl.href);
-      currentAudio.preload = "auto";
-
-      currentAudio.addEventListener(
-        "error",
-        () => {
-          showTemporaryMessage("Errore di riproduzione");
-        },
-        { once: true }
-      );
-
-      currentAudio.addEventListener(
-        "ended",
-        () => {
-          button.classList.remove('playing');
-        },
-        { once: true }
-      );
-
-
-      button.classList.add('playing');
-      await currentAudio.play();
+      playAudio(selectedFile);
 
       //button.textContent = "Riproduci un altro MP3";
     } catch (error) {
