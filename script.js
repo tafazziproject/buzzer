@@ -61,7 +61,7 @@
 
     item.addEventListener("click", () => playAudio(audio.path));
 
-    nav.querySelector(".inner").appendChild(item);
+    nav.appendChild(item);
   });
 
   nsfwSwitch.addEventListener("change", () => {
