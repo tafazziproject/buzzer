@@ -16,6 +16,8 @@
     "audio/carmine_long.mp3",
     "audio/vicie_long.mp3",
     "audio/fregna.mp3",
+    "audio/tuvaiafareichinotti.mp3",
+    "audio/tuamammavaafareichinotti.mp3",
   ];
 
   const mp3Files = [
@@ -23,6 +25,10 @@
     "audio/carmine_short.mp3",
     "audio/vicie_short.mp3",
     "audio/fischio.mp3",
+    "audio/gabinetti.mp3",
+    "audio/maiochecazzoneso.mp3",
+    "audio/monella_short.mp3",
+    "audio/monella_long.mp3",
   ];
 
   const allMp3Files = [
@@ -36,7 +42,13 @@
     { path: "audio/rafeeele_short.mp3", name: "rafeeele_short", safe: true },
     { path: "audio/carmine_short.mp3", name: "carmine_short", safe: true },
     { path: "audio/vicie_short.mp3", name: "vicie_short", safe: true },
-    { path: "audio/fischio.mp3", name: "fischio", safe: true }
+    { path: "audio/fischio.mp3", name: "fischio", safe: true },
+    { path: "audio/gabinetti.mp3", name: "gabinetti", safe: true },
+    { path: "audio/maiochecazzoneso.mp3", name: "maiochecazzoneso", safe: true },
+    { path: "audio/tuvaiafareichinotti.mp3", name: "chinotti_short", safe: false },
+    { path: "audio/tuamammavaafareichinotti.mp3", name: "tua mamma a vare", safe: false },
+    { path: "audio/monella_short.mp3", name: "monella short", safe: true },
+    { path: "audio/monella_long.mp3", name: "monella long", safe: true }
   ]
 
   const nav = document.querySelector("nav");
