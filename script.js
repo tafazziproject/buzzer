@@ -72,7 +72,7 @@
 
   navToggle.addEventListener("click", (e) => {
     nav.classList.toggle('-translate-y-full')
-    document.body.classList.toggle('overflow-hidden')
+    document.body.classList.toggle('nav-opened')
     e.currentTarget.classList.toggle('active')
   });
 
