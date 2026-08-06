@@ -18,6 +18,9 @@ const nswf_mp3Files = [
   "audio/fregna.mp3",
   "audio/tuvaiafareichinotti.mp3",
   "audio/tuamammavaafareichinotti.mp3",
+  "audio/lucavieni.mp3",
+  "audio/afaccrocazz.mp3",
+  "audio/comefaiarifiutare.mp3",
 ];
 
 const mp3Files = [
@@ -29,6 +32,7 @@ const mp3Files = [
   "audio/maiochecazzoneso.mp3",
   "audio/monella_short.mp3",
   "audio/monella_long.mp3",
+  "audio/maledettobastardo.mp3",
 ];
 
 const allMp3Files = [
@@ -48,7 +52,11 @@ const allMp3Files = [
   { path: "audio/tuvaiafareichinotti.mp3", name: "chinotti_short", safe: false, key: "k" },
   { path: "audio/tuamammavaafareichinotti.mp3", name: "tua mamma a vare", safe: false },
   { path: "audio/monella_short.mp3", name: "monella short", safe: true, key: "m" },
-  { path: "audio/monella_long.mp3", name: "monella long", safe: true, key: "1" }
+  { path: "audio/monella_long.mp3", name: "monella long", safe: true, key: "1" },
+  { path: "audio/lucavieni.mp3", name: "luca vieni", safe: false },
+  { path: "audio/afaccrocazz.mp3", name: "afrc", safe: false },
+  { path: "audio/maledettobastardo.mp3", name: "maledetto bastardo", safe: true },
+  { path: "audio/comefaiarifiutare.mp3", name: "come fai a rifiutare", safe: false }
 ]
 
 const nav = document.querySelector("nav");
