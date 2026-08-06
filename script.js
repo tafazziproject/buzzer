@@ -1,177 +1,201 @@
-  "use strict";
+"use strict";
 
-  /*
-   * Inserisci qui i percorsi dei file MP3.
-   *
-   * Sono ammessi:
-   * - percorsi relativi: "audio/brano-1.mp3"
-   * - percorsi assoluti: "/media/brano-2.mp3"
-   * - URL completi: "https://example.com/brano-3.mp3"
-   */
-  const nswf_mp3Files = [
-    "audio/rafele_long.mp3",
-    "audio/mmoccachitebbiv.mp3",
-    "audio/raffele_perbene.mp3",
-    "audio/vivalafregna.mp3",
-    "audio/carmine_long.mp3",
-    "audio/vicie_long.mp3",
-    "audio/fregna.mp3",
-    "audio/tuvaiafareichinotti.mp3",
-    "audio/tuamammavaafareichinotti.mp3",
-  ];
+/*
+ * Inserisci qui i percorsi dei file MP3.
+ *
+ * Sono ammessi:
+ * - percorsi relativi: "audio/brano-1.mp3"
+ * - percorsi assoluti: "/media/brano-2.mp3"
+ * - URL completi: "https://example.com/brano-3.mp3"
+ */
+const nswf_mp3Files = [
+  "audio/rafele_long.mp3",
+  "audio/mmoccachitebbiv.mp3",
+  "audio/raffele_perbene.mp3",
+  "audio/vivalafregna.mp3",
+  "audio/carmine_long.mp3",
+  "audio/vicie_long.mp3",
+  "audio/fregna.mp3",
+  "audio/tuvaiafareichinotti.mp3",
+  "audio/tuamammavaafareichinotti.mp3",
+];
 
-  const mp3Files = [
-    "audio/rafeeele_short.mp3",
-    "audio/carmine_short.mp3",
-    "audio/vicie_short.mp3",
-    "audio/fischio.mp3",
-    "audio/gabinetti.mp3",
-    "audio/maiochecazzoneso.mp3",
-    "audio/monella_short.mp3",
-    "audio/monella_long.mp3",
-  ];
+const mp3Files = [
+  "audio/rafeeele_short.mp3",
+  "audio/carmine_short.mp3",
+  "audio/vicie_short.mp3",
+  "audio/fischio.mp3",
+  "audio/gabinetti.mp3",
+  "audio/maiochecazzoneso.mp3",
+  "audio/monella_short.mp3",
+  "audio/monella_long.mp3",
+];
 
-  const allMp3Files = [
-    { path: "audio/rafele_long.mp3", name: "rafele_long", safe: false },
-    { path: "audio/mmoccachitebbiv.mp3", name: "mmoccachitebbiv", safe: false },
-    { path: "audio/raffele_perbene.mp3", name: "raffele_perbene", safe: false },
-    { path: "audio/vivalafregna.mp3", name: "vivalafregna", safe: false },
-    { path: "audio/carmine_long.mp3", name: "carmine_long", safe: false },
-    { path: "audio/vicie_long.mp3", name: "vicie_long", safe: false },
-    { path: "audio/fregna.mp3", name: "fregna", safe: false },
-    { path: "audio/rafeeele_short.mp3", name: "rafeeele_short", safe: true },
-    { path: "audio/carmine_short.mp3", name: "carmine_short", safe: true },
-    { path: "audio/vicie_short.mp3", name: "vicie_short", safe: true },
-    { path: "audio/fischio.mp3", name: "fischio", safe: true },
-    { path: "audio/gabinetti.mp3", name: "gabinetti", safe: true },
-    { path: "audio/maiochecazzoneso.mp3", name: "maiochecazzoneso", safe: true },
-    { path: "audio/tuvaiafareichinotti.mp3", name: "chinotti_short", safe: false },
-    { path: "audio/tuamammavaafareichinotti.mp3", name: "tua mamma a vare", safe: false },
-    { path: "audio/monella_short.mp3", name: "monella short", safe: true },
-    { path: "audio/monella_long.mp3", name: "monella long", safe: true }
-  ]
+const allMp3Files = [
+  { path: "audio/rafele_long.mp3", name: "rafele_long", safe: false, key: "a" },
+  { path: "audio/mmoccachitebbiv.mp3", name: "mmoccachitebbiv", safe: false },
+  { path: "audio/raffele_perbene.mp3", name: "raffele_perbene", safe: false, key: "r" },
+  { path: "audio/vivalafregna.mp3", name: "vivalafregna", safe: false, key: "v" },
+  { path: "audio/carmine_long.mp3", name: "carmine_long", safe: false },
+  { path: "audio/vicie_long.mp3", name: "vicie_long", safe: false },
+  { path: "audio/fregna.mp3", name: "fregna", safe: false },
+  { path: "audio/rafeeele_short.mp3", name: "rafeeele_short", safe: true },
+  { path: "audio/carmine_short.mp3", name: "carmine_short", safe: true, key: "c" },
+  { path: "audio/vicie_short.mp3", name: "vicie_short", safe: true, key: "b" },
+  { path: "audio/fischio.mp3", name: "fischio", safe: true, key: "f" },
+  { path: "audio/gabinetti.mp3", name: "gabinetti", safe: true },
+  { path: "audio/maiochecazzoneso.mp3", name: "maiochecazzoneso", safe: true },
+  { path: "audio/tuvaiafareichinotti.mp3", name: "chinotti_short", safe: false, key: "k" },
+  { path: "audio/tuamammavaafareichinotti.mp3", name: "tua mamma a vare", safe: false },
+  { path: "audio/monella_short.mp3", name: "monella short", safe: true, key: "m" },
+  { path: "audio/monella_long.mp3", name: "monella long", safe: true, key: "1" }
+]
 
-  const nav = document.querySelector("nav");
-  const navToggle = document.querySelector("#nav-toggle");
-  const button = document.querySelector("#playButton");
-  const nsfwSwitch = document.querySelector("#nsfw-switch");
-  const labelSwitch = document.querySelector("#switch-label");
-  const audioList = document.getElementById("audio-list");
+const nav = document.querySelector("nav");
+const navToggle = document.querySelector("#nav-toggle");
+const button = document.querySelector("#playButton");
+const nsfwSwitch = document.querySelector("#nsfw-switch");
+const labelSwitch = document.querySelector("#switch-label");
+const audioList = document.getElementById("audio-list");
 
-  allMp3Files.forEach(audio => {
-    const item = document.createElement("div");
-    item.style.cursor = "pointer";
+// Keybinding del tasto random 
+document.body.addEventListener("keydown", function (event) {
+  if (event.code === 'Enter') {
+    playRandomMp3();
+  }
+});
 
-    const name = document.createElement("button");
-    name.textContent = audio.name;
-    item.appendChild(name);
+// Creazione dei link nella nav
+allMp3Files.forEach(audio => {
+  const item = document.createElement("div");
+  item.style.cursor = "pointer";
 
-    if (!audio.safe) {
-      const dot = document.createElement("span");
-      name.insertAdjacentElement('beforeEnd', dot);
-    }
-
-    item.addEventListener("click", () => playAudio(audio.path));
-
-    nav.appendChild(item);
-  });
-
-  nsfwSwitch.addEventListener("change", () => {
-    labelSwitch.innerText = nsfwSwitch.checked ? "NOT SAFE" : "SAFE";
-  });
-
-
-
-  navToggle.addEventListener("click", (e) => {
-    nav.classList.toggle('-translate-y-full')
-    document.body.classList.toggle('nav-opened')
-    e.currentTarget.classList.toggle('active')
-  });
-
-
-
-  let currentAudio = null;
-  let messageTimeout = null;
-
-  /**
-   * Restituisce un indice casuale compreso tra 0 e length - 1.
-   * Usa crypto.getRandomValues quando disponibile.
-   */
-  function randomIndex(length) {
-    if (!Number.isInteger(length) || length <= 0) {
-      throw new RangeError("La lunghezza dell'array deve essere maggiore di zero.");
-    }
-
-    if (globalThis.crypto?.getRandomValues) {
-      const values = new Uint32Array(1);
-      const range = 0x100000000;
-      const limit = Math.floor(range / length) * length;
-
-      do {
-        crypto.getRandomValues(values);
-      } while (values[0] >= limit);
-
-      return values[0] % length;
-    }
-
-    return Math.floor(Math.random() * length);
+  const name = document.createElement("button");
+  name.textContent = audio.name
+  if ("key" in audio) {
+    name.textContent += ' (' + audio.key.toUpperCase() + ')';
   }
 
+  item.appendChild(name);
 
-  function showTemporaryMessage(message, duration = 3000) {
-    window.clearTimeout(messageTimeout);
-    button.textContent = message;
-
+  if (!audio.safe) {
+    const dot = document.createElement("span");
+    name.insertAdjacentElement('beforeEnd', dot);
   }
 
-  function playAudio(file) {
+  item.addEventListener("click", () => playAudio(audio.path));
+
+  nav.appendChild(item);
+
+  //Per ciascun nav item, faccio il keybinding se presente
+  if ("key" in audio && (audio.key != '' || audio.key != null)) {
+    document.body.addEventListener("keydown", function (event) {
+      if (event.key === audio.key) {
+        playAudio(audio.path);
+      }
+    });
+  }
+
+});
+
+
+// Safe switch
+nsfwSwitch.addEventListener("change", () => {
+  labelSwitch.innerText = nsfwSwitch.checked ? "NOT SAFE" : "SAFE";
+});
+
+
+// Toggle di apertura menu
+navToggle.addEventListener("click", (e) => {
+  nav.classList.toggle('-translate-y-full');
+  document.body.classList.toggle('nav-opened');
+  e.currentTarget.classList.toggle('active');
+});
+
+
+
+let currentAudio = null;
+let messageTimeout = null;
+
+/**
+ * Restituisce un indice casuale compreso tra 0 e length - 1.
+ * Usa crypto.getRandomValues quando disponibile.
+ */
+function randomIndex(length) {
+  if (!Number.isInteger(length) || length <= 0) {
+    throw new RangeError("La lunghezza dell'array deve essere maggiore di zero.");
+  }
+
+  if (globalThis.crypto?.getRandomValues) {
+    const values = new Uint32Array(1);
+    const range = 0x100000000;
+    const limit = Math.floor(range / length) * length;
+
+    do {
+      crypto.getRandomValues(values);
+    } while (values[0] >= limit);
+
+    return values[0] % length;
+  }
+
+  return Math.floor(Math.random() * length);
+}
+
+
+function showTemporaryMessage(message, duration = 3000) {
+  window.clearTimeout(messageTimeout);
+  button.textContent = message;
+
+}
+
+function playAudio(file) {
+  currentAudio?.pause();
+
+  currentAudio = new Audio(file);
+
+  currentAudio.addEventListener(
+    "ended",
+    () => {
+      button.classList.remove("playing");
+    },
+    { once: true }
+  );
+
+  button.classList.add("playing");
+  currentAudio.play();
+}
+
+async function playRandomMp3() {
+  if (mp3Files.length === 0) {
+    showTemporaryMessage("Nessun MP3 configurato");
+    return;
+  }
+
+  button.disabled = true;
+  //button.textContent = "Caricamento…";
+
+
+  try {
     currentAudio?.pause();
 
-    currentAudio = new Audio(file);
+    const files = nsfwSwitch.checked ? nswf_mp3Files : mp3Files;
 
-    currentAudio.addEventListener(
-      "ended",
-      () => {
-        button.classList.remove("playing");
-      },
-      { once: true }
-    );
-
-    button.classList.add("playing");
-    currentAudio.play();
-  }
-
-  async function playRandomMp3() {
-    if (mp3Files.length === 0) {
+    if (files.length === 0) {
       showTemporaryMessage("Nessun MP3 configurato");
       return;
     }
 
-    button.disabled = true;
-    //button.textContent = "Caricamento…";
+    const selectedFile = files[randomIndex(files.length)];
+    playAudio(selectedFile);
 
+    //button.textContent = "Riproduci un altro MP3";
+  } catch (error) {
+    console.error(error);
+    showTemporaryMessage("Impossibile riprodurre l'audio");
+  } finally {
+    button.disabled = false;
 
-    try {
-      currentAudio?.pause();
-
-      const files = nsfwSwitch.checked ? nswf_mp3Files : mp3Files;
-
-      if (files.length === 0) {
-        showTemporaryMessage("Nessun MP3 configurato");
-        return;
-      }
-
-      const selectedFile = files[randomIndex(files.length)];
-      playAudio(selectedFile);
-
-      //button.textContent = "Riproduci un altro MP3";
-    } catch (error) {
-      console.error(error);
-      showTemporaryMessage("Impossibile riprodurre l'audio");
-    } finally {
-      button.disabled = false;
-
-    }
   }
+}
 
-  button.addEventListener("click", playRandomMp3);
+button.addEventListener("click", playRandomMp3);
