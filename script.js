@@ -18,6 +18,13 @@ const nswf_mp3Files = [
   "audio/fregna.mp3",
   "audio/tuvaiafareichinotti.mp3",
   "audio/tuamammavaafareichinotti.mp3",
+  "audio/losentiilpesce.mp3",
+  "audio/vivalamerda.mp3",
+  "audio/qualita.mp3",
+  "audio/cagnamaledetta.mp3",
+  "audio/cagnafattaefinita.mp3",
+  "audio/edicsi.mp3",
+  "audio/notelecamera.mp3",
 ];
 
 const mp3Files = [
@@ -29,6 +36,24 @@ const mp3Files = [
   "audio/maiochecazzoneso.mp3",
   "audio/monella_short.mp3",
   "audio/monella_long.mp3",
+  "audio/tappo.mp3",
+  "audio/doc.mp3",
+  "audio/marooo.mp3",
+  "audio/pittore.mp3",
+  "audio/coffeebreak.mp3",
+  "audio/simmsettott.mp3",
+  "audio/meggappicciat.mp3",
+  "audio/ibambin.mp3",
+  "audio/nisciun.mp3",
+  "audio/aggvistnurummor.mp3",
+  "audio/ecomammafa.mp3",
+  "audio/chillpovauln.mp3",
+  "audio/farfuglio.mp3",
+  "audio/benzinaelampi.mp3",
+  "audio/ilimoni.mp3",
+  "audio/teresa.mp3",
+  "audio/fettinedivitello.mp3",
+
 ];
 
 const allMp3Files = [
@@ -48,7 +73,31 @@ const allMp3Files = [
   { path: "audio/tuvaiafareichinotti.mp3", name: "chinotti_short", safe: false, key: "k" },
   { path: "audio/tuamammavaafareichinotti.mp3", name: "tua mamma a vare", safe: false },
   { path: "audio/monella_short.mp3", name: "monella short", safe: true, key: "m" },
-  { path: "audio/monella_long.mp3", name: "monella long", safe: true, key: "1" }
+  { path: "audio/monella_long.mp3", name: "monella long", safe: true, key: "1" },
+  { path: "audio/tappo.mp3", name: "tappo", safe: true },
+  { path: "audio/doc.mp3", name: "doc!", safe: true },
+  { path: "audio/marooo.mp3", name: "maroooo", safe: true },
+  { path: "audio/losentiilpesce.mp3", name: "maroooo", safe: false },
+  { path: "audio/pittore.mp3", name: "maroooo", safe: true },
+  { path: "audio/coffeebreak.mp3", name: "coffee break", safe: true },
+  { path: "audio/vivalamerda.mp3", name: "viva la merda", safe: false },
+  { path: "audio/qualita.mp3", name: "A noi la qualità", safe: false },
+  { path: "audio/cagnamaledetta.mp3", name: "Cagna maledetta", safe: false },
+  { path: "audio/cagnafattaefinita.mp3", name: "Cagna fatta e finita", safe: false },
+  { path: "audio/edicsi.mp3", name: "E dic sì", safe: false },
+  { path: "audio/simmsettott.mp3", name: "Sett ott e nuj", safe: true },
+  { path: "audio/meggappicciat.mp3", name: "Megg appicciat", safe: true },
+  { path: "audio/meggappicciat.mp3", name: "I bambæn", safe: true },
+  { path: "audio/nisciun.mp3", name: "Nisciün", safe: true },
+  { path: "audio/aggvistnurummor.mp3", name: "Agg vist nu rummor", safe: true },
+  { path: "audio/ecomammafa.mp3", name: "E comm amma fæ", safe: true },
+  { path: "audio/chillpovauln.mp3", name: "Chill po væuln", safe: true },
+  { path: "audio/farfuglio.mp3", name: "Farfuglio", safe: true },
+  { path: "audio/benzinaelampi.mp3", name: "Adda chiov benzin", safe: true },
+  { path: "audio/ilimoni.mp3", name: "I limoni", safe: true },
+  { path: "audio/notelecamera.mp3", name: "Noo telecamera", safe: false },
+  { path: "audio/teresa.mp3", name: "Teresa", safe: true },
+  { path: "audio/fettinedivitello.mp3", name: "Fettine di vitello", safe: true },
 ]
 
 const nav = document.querySelector("nav");
