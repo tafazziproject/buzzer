@@ -1,43 +1,109 @@
+:root {
+  color-scheme: dark;
+}
+
+html,
 body {
-    font-family: "Science Gothic", sans-serif;
+  width: 100%;
+  min-height: 100%;
 }
-body.nav-opened {
-    overflow:hidden;
-    height:100dvh;
+
+body {
+  font-family: "Science Gothic", sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
+
+button,
+input {
+  font: inherit;
+}
+
+#app-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 255, 255, .08), transparent 32%),
+    linear-gradient(to bottom, rgba(255, 255, 255, .05), transparent 22%, rgba(0, 30, 160, .04));
+}
+
 #playButton {
-    box-shadow: 0 0 1.5rem rgb(255 255 0 / 58%);
-    transition:
-        transform 120ms ease,
-        box-shadow 120ms ease,
-        opacity 120ms ease;
+  isolation: isolate;
 }
 
 #playButton.playing {
-    background-color: red;
-    box-shadow: 0 0 1.5rem rgb(255 0 0 / 58%);
+  animation: tafazzi-pulse 1.15s ease-in-out infinite;
 }
 
-#playButton:not(.playing):hover:not(:disabled) {
-    transform: scale(1.2);
-    transform-origin: center;
-    box-shadow: 0 0 1.75rem rgb(255 255 0 / 94%);
+#playButton.playing > span:last-child {
+  color: #ffffff;
+  background: rgba(255, 255, 255, .24);
 }
 
-#playButton:active:not(:disabled) {
-    transform: translateY(0);
+@keyframes tafazzi-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 16px 50px rgba(0, 44, 198, .35);
+  }
+  50% {
+    transform: scale(1.045);
+    box-shadow: 0 18px 65px rgba(255, 255, 255, .28);
+  }
 }
 
-#playButton:focus-visible {
-    outline: 3px solid Highlight;
-    outline-offset: 4px;
+.nav-item.active {
+  background: rgba(70, 112, 236, .2);
+  color: #2558da;
 }
 
-#playButton:disabled {
-    cursor: wait;
-    opacity: 0.7;
+.mode-tab {
+  color: rgba(255, 255, 255, .6);
 }
-#nav-toggle.active {
-    -webkit-transform: scaleY(-1);
-  transform: scaleY(-1);
+
+.mode-tab.active {
+  background: rgba(255, 255, 255, .86);
+  color: #1748c7;
+  box-shadow: 0 6px 18px rgba(0, 38, 145, .14);
+}
+
+.audio-item.playing-item {
+  background: rgba(255, 255, 255, .24);
+  border-color: rgba(255, 255, 255, .36);
+}
+
+#settings-panel.open {
+  pointer-events: auto;
+  background: rgba(0, 18, 75, .42);
+  opacity: 1;
+}
+
+#settings-panel.open #settings-sheet {
+  transform: translateY(0);
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  body {
+    display: grid;
+    place-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
 }
